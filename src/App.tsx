@@ -2,8 +2,12 @@ import { Suspense, lazy } from "react";
 import { createGlobalStyle } from "styled-components";
 import { AnimatePresence } from "framer-motion";
 import { Route, Routes, useLocation } from "react-router-dom";
+import { Layout } from "./page/Layout";
+import './main.css'
 
-const Chat = lazy(() => import("./page/Chat"));
+
+
+const Chat = lazy(() => import("./page/Guest"));
 const Success = lazy(() => import("./page/Success"));
 const NotFound = lazy(() => import("./page/404"));
 
@@ -109,6 +113,7 @@ const App = () => {
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Chat />} />
             <Route path="/success" element={<Success />} />
+            <Route path="/layout" element={<Layout/>}/>
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AnimatePresence>
