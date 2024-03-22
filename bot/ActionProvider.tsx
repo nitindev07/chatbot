@@ -2,7 +2,6 @@ import React from "react";
 import { IMessageOptions } from "react-chatbot-kit/build/src/interfaces/IMessages";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
-import { addAge, addName } from "../redux/features/messages-slice";
 
 const ActionProvider = ({
   createChatBotMessage,
@@ -24,7 +23,6 @@ const ActionProvider = ({
   setState: any;
   children: any;
 }) => {
-  const dispatch = useDispatch<AppDispatch>();
   const handleGotIt = () => {
     const botMessage = createChatBotMessage("Enter your Name", {});
 
