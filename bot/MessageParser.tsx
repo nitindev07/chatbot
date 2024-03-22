@@ -7,14 +7,14 @@ const MessageParser = ({
   children: any;
   actions: {
     handleGotIt: () => void;
-    handleUserInput: () => void;
+    handleUserInput: (message: string) => void;
   };
 }) => {
   const parse = (message: string) => {
     if (message.includes("got it!")) {
       actions.handleGotIt();
     } else {
-      actions.handleUserInput();
+      actions.handleUserInput(message);
     }
   };
 

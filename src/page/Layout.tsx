@@ -4,39 +4,37 @@ import ChatBot from "./ChatBot";
 import { styled } from "styled-components";
 import "react-chatbot-kit/build/main.css";
 
-
-
 export const Layout = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [botOpened, setBotOpened] = useState<boolean>(false);
-  const [tab,setTab]=useState('')
+  const [tab, setTab] = useState("");
   const handleOpen = () => {
     setIsOpen(true);
-    setBotOpened(true)
+    setBotOpened(true);
   };
   const handleClose = () => {
     setIsOpen(false);
     setBotOpened(false);
   };
   const StyledChat = styled.div`
-  .intr {
-    & .react-chatbot-kit-chat-inner-container {
-      border: 1px solid rgb(var(--dark-color) / 0.25);
-      border-radius: 0.4rem;
-      overflow: hidden;
-      & .react-chatbot-kit-chat-bot-message {
-        & .react-chatbot-kit-chat-bot-message-arrow {
-          border-width: 0;
+    .intr {
+      & .react-chatbot-kit-chat-inner-container {
+        border: 1px solid rgb(var(--dark-color) / 0.25);
+        border-radius: 0.4rem;
+        overflow: hidden;
+        & .react-chatbot-kit-chat-bot-message {
+          & .react-chatbot-kit-chat-bot-message-arrow {
+            border-width: 0;
+          }
         }
       }
     }
-  }
-`;
+  `;
   const Data = [
     {
       icon: <HiOutlineAcademicCap />,
       title: "Acadamics",
-      tab: "academic", 
+      tab: "academic",
     },
     {
       icon: <HiOutlineAcademicCap />,
@@ -46,7 +44,7 @@ export const Layout = () => {
     {
       icon: <HiOutlineAcademicCap />,
       title: "xyz",
-      tab: "xyz", 
+      tab: "xyz",
     },
   ];
   return (
@@ -66,26 +64,43 @@ export const Layout = () => {
                   <div className="">
                     <h3 className="text-2xl">{card.title}</h3>
                   </div>
-                  <button
-                    className="px-16 py-2 text-white rounded-xl bg-gray-600 hover:bg-gray-600/60"
-                    onClick={() => {setTab(card.tab); handleOpen()}}
-                  >
-                    open
-                  </button>
+                  {card.tab == "academic" ? (
+                    <button
+                      className="px-16 py-2 text-white rounded-xl bg-gray-600 hover:bg-gray-600/60"
+                      onClick={() => {
+                        setTab(card.tab);
+                        handleOpen();
+                      }}
+                    >
+                      open
+                    </button>
+                  ) : (
+                    <button className="px-16 py-2 text-white rounded-xl bg-gray-600 hover:bg-gray-600/60">
+                      Coming Soon
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
           );
         })}
       </div>
-      
-        <div onClick={handleClose} className={`fixed h-screen left-0 bg-black/80 w-full  z-10 ${isOpen ? 'top-[0%]':'-top-[100%]'}`} ></div>
 
       <div
-        className={`${isOpen ? 'top-[8%]':'-top-[100%]'} z-40 fixed duration-300 shadow-lg overflow-hidden ease-in-out`}>
-       <StyledChat>
+        onClick={handleClose}
+        className={`fixed h-screen left-0 bg-black/80 w-full  z-10 ${
+          isOpen ? "top-[0%]" : "-top-[100%]"
+        }`}
+      ></div>
+
+      <div
+        className={`${
+          isOpen ? "top-[8%]" : "-top-[100%]"
+        } z-40 fixed duration-300 shadow-lg overflow-hidden ease-in-out`}
+      >
+        <StyledChat>
           <div className="intr">
-            <ChatBot isOpened={botOpened} tab={tab}/>
+            <ChatBot isOpened={botOpened} tab={tab} />
           </div>
         </StyledChat>
       </div>
