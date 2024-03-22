@@ -1,7 +1,5 @@
 import React from "react";
 import { IMessageOptions } from "react-chatbot-kit/build/src/interfaces/IMessages";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../redux/store";
 
 const ActionProvider = ({
   createChatBotMessage,
