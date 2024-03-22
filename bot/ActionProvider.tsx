@@ -66,7 +66,7 @@ const ActionProvider = ({
     );
 
     await fetch(
-      "https://llm-niche-based-qna-chatbot.onrender.com/get_answer/",
+      "http://127.0.0.1:8000/get_answer/",
       requestOptions
     ).then(async (response: any) => {
       const data = await response.json();
