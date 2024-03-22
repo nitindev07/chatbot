@@ -35,7 +35,17 @@ const Chat = () => {
   return (
     <StyledChat>
       <div className="intro">
-        <h1>Enter into Student Info System</h1>
+        <div className="flex justify-center items-center mb-4">
+        <img src="/sidganga.png" style={
+          {
+            width: "300px",
+            height: "300px",
+            objectFit: "cover"
+          }
+        
+        } alt="logo" />
+        </div>
+        <h1>Sidganga Institute Of Technology Chatbot</h1>
         <button onClick={()=>{navigateTo('/layout')}}>
           Guest Login
         </button>

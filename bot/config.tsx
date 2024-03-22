@@ -3,25 +3,33 @@ import GotIt from "./widgets/options/GotIt";
 import AgeDropdown from "./widgets/options/AgeDropdown";
 import IWidget from "react-chatbot-kit/build/src/interfaces/IWidget";
 import IConfig from "react-chatbot-kit/build/src/interfaces/IConfig";
-import chatGPT from "/chatgpt.svg";
+import chatGPT from "/sidganga.png";
 
 const config: IConfig = {
   botName: "Student Info System Bot",
   initialMessages: [
-    createChatBotMessage(`Hello, Welcome to student info system!`, {
+    createChatBotMessage(`Hello, You are talking with Sidganga chatbot!`, {
       widget: "gotIt",
     }),
   ],
   customStyles: {
     botMessageBox: {
-      backgroundColor: "#376B7E",
+      backgroundColor: "#E5E5E5",
     },
     chatButton: {
       backgroundColor: "#376B7E",
     },
   },
   customComponents: {
-    botAvatar: (props: any) => <img src={chatGPT} alt="bot" {...props} />,
+    botAvatar: (props: any) => <img src={chatGPT} alt="bot" style={
+      {
+        borderRadius: "50%",
+        width: "40px",
+        height: "40px",
+        objectFit: "cover"
+      }
+    
+    } {...props} />,
   },
   widgets: [
     {
