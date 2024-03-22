@@ -33,18 +33,18 @@ export const Layout = () => {
   const Data = [
     {
       icon: <HiOutlineAcademicCap />,
-      title: "Acadamics",
+      title: "Academics",
       tab: "academic",
     },
     {
       icon: <HiOutlineAcademicCap />,
-      title: "Interview",
-      tab: "interview",
+      title: "Placement",
+      tab: "placement",
     },
     {
       icon: <HiOutlineAcademicCap />,
-      title: "xyz",
-      tab: "xyz",
+      title: "Admission",
+      tab: "admission",
     },
   ];
   return (
