@@ -45,7 +45,7 @@ const Chat = () => {
         
         } alt="logo" />
         </div>
-        <h1>Sidganga Institute Of Technology Chatbot</h1>
+        <h1>Siddaganga Institute Of Technology Chatbot</h1>
         <button onClick={()=>{navigateTo('/layout')}}>
           Guest Login
         </button>

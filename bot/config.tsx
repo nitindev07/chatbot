@@ -8,7 +8,7 @@ import chatGPT from "/sidganga.png";
 const config: IConfig = {
   botName: "Student Info System Bot",
   initialMessages: [
-    createChatBotMessage(`Hello, You are talking with Sidganga chatbot!`, {
+    createChatBotMessage(`Hello, You are talking with Siddaganga chatbot!`, {
       widget: "gotIt",
     }),
   ],

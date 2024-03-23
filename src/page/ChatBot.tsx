@@ -34,11 +34,11 @@ const ChatBot = ({isOpened, tab}: Props) => {
     }, [count, dispatch, navigate]);
     let dynamicConfig = { ...config };
   if (tab === "academic") {
-    dynamicConfig = { ...dynamicConfig, botName: "Sidganga Academic BOT" };
+    dynamicConfig = { ...dynamicConfig, botName: "Siddaganga Academic BOT" };
   } else if (tab === "placement") {
-    dynamicConfig = { ...dynamicConfig, botName: "Sidganga Placement Bot" };
+    dynamicConfig = { ...dynamicConfig, botName: "Siddaganga Placement Bot" };
   } else if (tab === "admission") {
-    dynamicConfig = { ...dynamicConfig, botName: "Sidganga Admission Bot" };
+    dynamicConfig = { ...dynamicConfig, botName: "Siddaganga Admission Bot" };
   }
     return (
         <div className='chatbot-container '>
