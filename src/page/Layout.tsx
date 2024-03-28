@@ -3,6 +3,7 @@ import { HiOutlineAcademicCap } from "react-icons/hi2";
 import ChatBot from "./ChatBot";
 import { styled } from "styled-components";
 import "react-chatbot-kit/build/main.css";
+import { RxCross2 } from "react-icons/rx";
 
 export const Layout = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -64,21 +65,15 @@ export const Layout = () => {
                   <div className="">
                     <h3 className="text-2xl">{card.title}</h3>
                   </div>
-                  {card.tab == "academic" ? (
-                    <button
-                      className="px-16 py-2 text-white rounded-xl bg-gray-600 hover:bg-gray-600/60"
-                      onClick={() => {
-                        setTab(card.tab);
-                        handleOpen();
-                      }}
-                    >
-                      open
-                    </button>
-                  ) : (
-                    <button className="px-16 py-2 text-white rounded-xl bg-gray-600 hover:bg-gray-600/60">
-                      Coming Soon
-                    </button>
-                  )}
+                  <button
+                    className="px-16 py-2 text-white rounded-xl bg-gray-600 hover:bg-gray-600/60"
+                    onClick={() => {
+                      setTab(card.tab);
+                      handleOpen();
+                    }}
+                  >
+                    open
+                  </button>
                 </div>
               </div>
             </div>
@@ -87,20 +82,25 @@ export const Layout = () => {
       </div>
 
       <div
-        onClick={handleClose}
-        className={`fixed h-screen left-0 bg-black/80 w-full  z-10 ${
+        className={`fixed h-screen bg-black/80 w-full  z-10 ${
           isOpen ? "top-[0%]" : "-top-[100%]"
         }`}
       ></div>
 
       <div
         className={`${
-          isOpen ? "top-[8%]" : "-top-[100%]"
-        } z-40 fixed duration-300 shadow-lg overflow-hidden ease-in-out`}
+          isOpen ? "top-[12%] lg:top-[7%]" : "-top-[100%]"
+        } z-40 fixed duration-300 transition-all shadow-lg ease-in-out`}
       >
         <StyledChat>
-          <div className="intr">
+          <div className="intr flex justify-center items-start">
             <ChatBot isOpened={botOpened} tab={tab} />
+            <div
+              onClick={handleClose}
+              className="text-2xl bg-white p-1 rounded-full block h-full ml-2 -mt-6"
+            >
+              <RxCross2 />
+            </div>
           </div>
         </StyledChat>
       </div>

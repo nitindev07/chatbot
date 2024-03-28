@@ -1,57 +1,81 @@
-import { styled } from "styled-components";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { IoEyeOutline } from "react-icons/io5";
+import { IoEyeOffOutline } from "react-icons/io5";
 
-const StyledChat = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
-  & .intro {
-    text-align: center;
-    & > h1 {
-      font-size: 3.5rem;
-    }
-    & > button {
-      margin-top: 1rem;
-      padding: 0.75rem 2rem;
-      font-size: 2rem;
-      border-radius: 5rem;
-      border: 1px solid rgb(var(--dark-color));
-      transition: 0.15s;
-      &:active {
-        transform: scale(0.95);
-        border-color: rgb(var(--primary-color));
-      }
-    }
-  }
-  
-`;
+const Login = () => {
+  const [email, setEmail] = useState(""); 
+  const [password, setPassword] = useState(""); 
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-const Chat = () => {
-  const navigateTo = useNavigate()
+  const handleLogin = (event:any) => {
+    event.preventDefault();
+
+    if (email === "test123" && password === "test123") {
+      navigate("/layout");
+    } else {
+      setError("Invalid email or password. Please try again.");
+    }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
-    <StyledChat>
-      <div className="intro">
-        <div className="flex justify-center items-center mb-4">
-        <img src="/sidganga.png" style={
-          {
-            width: "300px",
-            height: "300px",
-            objectFit: "cover"
-          }
-        
-        } alt="logo" />
+    <div className="w-[400px] mx-auto my-20">
+      <div className="flex flex-col justify-center items-center p-4 lg:p-12 md:border border-gray-500/40 rounded-lg">
+        <div className="flex flex-col justify-center text-center gap-y-6 items-center mb-12">
+          <img
+            src="/sidganga.png"
+            style={{
+              width: "100px",
+              height: "100px",
+              objectFit: "cover",
+            }}
+            alt="logo"
+          />
+          <h1 className="text-xl font-semibold">
+            Sidganga Institute Of Technology Chatbot
+          </h1>
         </div>
-        <h1>Siddaganga Institute Of Technology Chatbot</h1>
-        <button onClick={()=>{navigateTo('/layout')}}>
-          Guest Login
-        </button>
+        <h1 className="text-2xl font-bold mb-7">Login</h1>
+        <div className="flex flex-col items-center gap-5 justify-center w-full">
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            className="border rounded-md border-black/20 w-full py-3 px-3"
+          />
+          <div className="relative w-full">
+            <input
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              className="border w-full rounded-md border-black/20 py-3 px-3"
+            />
+            <button
+              className="absolute right-4 top-1/2 transform opacity-50 -translate-y-1/2 focus:outline-none"
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? <IoEyeOffOutline size={20}/> : <IoEyeOutline size={20}/>}
+            </button>
+          </div>
+          <button
+            onClick={handleLogin}
+            className="bg-gray-500 hover:bg-gray-500/50 py-3 rounded-md text-white font-semibold px-3 w-[200px]"
+          >
+            Login
+          </button>
+          {error && <p className="text-red-500">{error}</p>}
+        </div>
       </div>
-    </StyledChat>
+    </div>
   );
 };
 
-export default Chat;
+export default Login;
