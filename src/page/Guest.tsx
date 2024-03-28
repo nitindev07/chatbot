@@ -1,7 +1,8 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
+import PrivateComp from "./PrivateComp";
 
 const Login = () => {
   const [email, setEmail] = useState(""); 
@@ -12,13 +13,18 @@ const Login = () => {
 
   const handleLogin = (event:any) => {
     event.preventDefault();
-
+  
     if (email === "test123" && password === "test123") {
+      localStorage.setItem("email", email);
+      localStorage.setItem("password", password);
+  
       navigate("/layout");
     } else {
       setError("Invalid email or password. Please try again.");
     }
   };
+  
+ 
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);

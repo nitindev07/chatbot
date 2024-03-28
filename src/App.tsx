@@ -3,9 +3,8 @@ import { createGlobalStyle } from "styled-components";
 import { AnimatePresence } from "framer-motion";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { Layout } from "./page/Layout";
-import './main.css'
-
-
+import "./main.css";
+import PrivateComp from "./page/PrivateComp";
 
 const Chat = lazy(() => import("./page/Guest"));
 const Success = lazy(() => import("./page/Success"));
@@ -111,9 +110,11 @@ const App = () => {
       >
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<Chat />} />
+          <Route element={<PrivateComp/>}>
             <Route path="/success" element={<Success />} />
-            <Route path="/layout" element={<Layout/>}/>
+            <Route path="/layout" element={<Layout />} />
+            </Route>
+            <Route path="/" element={<Chat />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AnimatePresence>
