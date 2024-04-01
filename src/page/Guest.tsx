@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
-import PrivateComp from "./PrivateComp";
 
 const Login = () => {
   const [email, setEmail] = useState(""); 

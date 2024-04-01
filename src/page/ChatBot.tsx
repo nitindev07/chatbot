@@ -12,10 +12,9 @@ import "../ChatBot.css";
 
 interface Props {
     isOpened:boolean
-    tab:string
 }
 
-const ChatBot = ({isOpened, tab}: Props) => {
+const ChatBot = ({isOpened}: Props) => {
   const navigate = useNavigate()
 
     const count = useAppSelector((state) => state.messageReducer.count);
@@ -32,19 +31,12 @@ const ChatBot = ({isOpened, tab}: Props) => {
         clearInterval(interval);
       };
     }, [count, dispatch, navigate]);
-    let dynamicConfig = { ...config };
-  if (tab === "academic") {
-    dynamicConfig = { ...dynamicConfig, botName: "Siddaganga Academic BOT" };
-  } else if (tab === "placement") {
-    dynamicConfig = { ...dynamicConfig, botName: "Siddaganga Placement Bot" };
-  } else if (tab === "admission") {
-    dynamicConfig = { ...dynamicConfig, botName: "Siddaganga Admission Bot" };
-  }
+    
     return (
         <div className='chatbot-container '>
             {isOpened && (
         <Chatbot
-          config={dynamicConfig}
+          config={config}
           messageParser={MessageParser}
           actionProvider={ActionProvider}
         />
