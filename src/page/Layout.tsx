@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { HiOutlineAcademicCap } from "react-icons/hi2";
 import ChatBot from "./ChatBot";
 import { styled } from "styled-components";
 import "react-chatbot-kit/build/main.css";
