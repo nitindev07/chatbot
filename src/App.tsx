@@ -110,9 +110,9 @@ const App = () => {
       >
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
-          <Route element={<PrivateComp/>}>
-            <Route path="/success" element={<Success />} />
-            <Route path="/layout" element={<Layout />} />
+            <Route element={<PrivateComp />}>
+              <Route path="/success" element={<Success />} />
+              <Route path="/layout" element={<Layout />} />
             </Route>
             <Route path="/" element={<Chat />} />
             <Route path="*" element={<NotFound />} />

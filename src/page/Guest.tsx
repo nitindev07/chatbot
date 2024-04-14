@@ -4,6 +4,7 @@ import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
 import { BASE_URL } from "../utils/contants";
 import axios from "axios";
+import { Modal } from "antd";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,6 +14,28 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [isNewUser, setIsNewUser] = useState(false);
+
+  const [feedbackModal, setFeedbackModal] = useState(false);
+  const [selectedCompany, setSelectedCompany] = useState("");
+  const [feedbackModalStage, setFeedbackModalStage] = useState(0);
+  const handleCloseFeedbackModal = () => {
+    setFeedbackModal(false);
+    setFeedbackModalStage(0);
+    setSelectedCompany("");
+  };
+  const handleOpenFeedbackModal = () => setFeedbackModal(true);
+
+  const [companies, setCompanies] = useState([
+    "Google",
+    "Microsoft",
+    "Apple",
+    "Amazon",
+    "Facebook",
+    "Twitter",
+    "Bosch",
+    "Infosys",
+    "TCS",
+  ]);
 
   const handleLogin = async (event: any) => {
     event.preventDefault();
@@ -45,6 +68,7 @@ const Login = () => {
       const response = await axios.request(config);
       if (isNewUser) {
         setIsNewUser(false);
+        sessionStorage.setItem("email", email);
         setEmail("");
         setPassword("");
         setError("");
@@ -60,12 +84,85 @@ const Login = () => {
     }
   };
 
+  const [feedbacks, setFeedbacks] = useState([]);
+
+  const handleSearchFeedbacks = async (company: string) => {
+    const config: any = {
+      url: `${BASE_URL}/get_feedback?company=${company}`,
+      method: "GET",
+    };
+
+    try {
+      const response = await axios.request(config);
+      console.log(response.data);
+      setFeedbacks(response.data);
+      setFeedbackModalStage(1);
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
   return (
     <div className="w-[400px] mx-auto my-20">
+      <Modal
+        onCancel={handleCloseFeedbackModal}
+        onOk={handleCloseFeedbackModal}
+        open={feedbackModal}
+        footer={null}
+        title={null}
+      >
+        <div className="pt-5">
+          {feedbackModalStage == 0 ? (
+            <div className="pt-5">
+              <h4 className="pb-3">Select Company to view Feedbacks</h4>
+              <div className="grid grid-cols-2 gap-4 ">
+                {companies.map((company, index) => (
+                  <div
+                    onClick={() => {
+                      setSelectedCompany(company);
+                      handleSearchFeedbacks(company);
+                    }}
+                    className="shadow p-2 rounded-lg border cursor-pointer"
+                  >
+                    {company}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : feedbackModalStage == 1 ? (
+            <div className="pt-5">
+              <h4 className="pb-5">Feedbacks of Company: {selectedCompany}</h4>
+              {feedbacks?.length > 0 && (
+                <p className="pb-2 text-base">
+                  How was your experience with {selectedCompany}
+                </p>
+              )}
+
+              <div className="grid grid-cols-1 gap-4 ">
+                {feedbacks?.length > 0 ? (
+                  feedbacks.map((feedback: any, index: number) => (
+                    <div
+                      className="shadow p-2 rounded-lg cursor-pointer flex flex-col gap-1 border"
+                      key={index}
+                    >
+                      <div>
+                        <b>{feedback.username}</b> - {feedback.answer}
+                      </div>
+                      <div></div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="font-bold">No feedbacks found</p>
+                )}
+              </div>
+            </div>
+          ) : null}
+        </div>
+      </Modal>
       <div className="flex flex-col justify-center items-center p-4 lg:p-12 md:border border-gray-500/40 rounded-lg">
         <div className="flex flex-col justify-center text-center gap-y-6 items-center mb-12">
           <img
@@ -78,7 +175,7 @@ const Login = () => {
             alt="logo"
           />
           <h1 className="text-xl font-semibold">
-          Siddaganga Institute Of Technology Chatbot
+            Siddaganga Institute Of Technology Chatbot
           </h1>
         </div>
         <h1 className="text-2xl font-bold mb-7">
@@ -117,6 +214,14 @@ const Login = () => {
           >
             {isNewUser ? "Sign up" : "Login"}
           </button>
+          <button
+            onClick={() => {
+              navigate("/layout", { state: { isGuest: true } });
+            }}
+            className="bg-gray-500 hover:bg-gray-500/50 py-3 rounded-md text-white font-semibold px-3 w-[200px]"
+          >
+            Login as Guest
+          </button>
           <p
             onClick={() => {
               setIsNewUser(!isNewUser);
@@ -131,6 +236,12 @@ const Login = () => {
           {error && <p className="text-red-500">{error}</p>}
         </div>
       </div>
+      <button
+        onClick={handleOpenFeedbackModal}
+        className="mt-3 w-full bg-blue-800 text-white p-2 px-3 rounded-md"
+      >
+        See Students Feedbacks
+      </button>
     </div>
   );
 };
