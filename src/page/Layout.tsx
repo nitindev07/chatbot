@@ -13,8 +13,14 @@ export const Layout = () => {
   const handleClose = () => {
     setIsOpen(false);
     setBotOpened(false);
-    navigate('/')
+    navigate("/");
   };
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("isLogged")) {
+      navigate("/");
+    }
+  }, []);
   const StyledChat = styled.div`
     .intr {
       & .react-chatbot-kit-chat-inner-container {
@@ -31,33 +37,31 @@ export const Layout = () => {
   `;
   useEffect(() => {
     setTimeout(() => {
-        setBotOpened(true);
-        setIsOpen(true);
+      setBotOpened(true);
+      setIsOpen(true);
     }, 100);
-}, []);
+  }, []);
   return (
     <div className="flex justify-center items-center my-6 lg:my-0 h-[100vh] w-full">
-        <div
-          className={`fixed h-screen bg-black/80 w-full top-0 z-10 `}
-        ></div>
+      <div className={`fixed h-screen bg-black/80 w-full top-0 z-10 `}></div>
 
-        <div
-          className={`${
-            isOpen ? "top-[12%] lg:top-[7%]" : "-top-[100%]"
-          } z-40 fixed duration-300 transition-all shadow-lg ease-in-out`}
-        >
-          <StyledChat>
-            <div className="intr flex justify-center items-start">
-              <ChatBot isOpened={botOpened} />
-              <div
-                onClick={handleClose}
-                className="text-2xl bg-white p-1 rounded-full block h-full ml-2 -mt-6"
-              >
-                <RxCross2 />
-              </div>
+      <div
+        className={`${
+          isOpen ? "top-[12%] lg:top-[7%]" : "-top-[100%]"
+        } z-40 fixed duration-300 transition-all shadow-lg ease-in-out`}
+      >
+        <StyledChat>
+          <div className="intr flex justify-center items-start">
+            <ChatBot isOpened={botOpened} />
+            <div
+              onClick={handleClose}
+              className="text-2xl bg-white p-1 rounded-full block h-full ml-2 -mt-6"
+            >
+              <RxCross2 />
             </div>
-          </StyledChat>
-        </div>
+          </div>
+        </StyledChat>
       </div>
+    </div>
   );
 };
