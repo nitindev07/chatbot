@@ -18,6 +18,7 @@ export const Layout = () => {
 
   useEffect(() => {
     if (!sessionStorage.getItem("isLogged")) {
+      console.log("not logged in");
       navigate("/");
     }
   }, []);

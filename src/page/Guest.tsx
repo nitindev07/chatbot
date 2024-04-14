@@ -78,7 +78,7 @@ const Login = () => {
             alt="logo"
           />
           <h1 className="text-xl font-semibold">
-            Sidganga Institute Of Technology Chatbot
+          Siddaganga Institute Of Technology Chatbot
           </h1>
         </div>
         <h1 className="text-2xl font-bold mb-7">
