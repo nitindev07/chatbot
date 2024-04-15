@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
@@ -25,17 +25,7 @@ const Login = () => {
   };
   const handleOpenFeedbackModal = () => setFeedbackModal(true);
 
-  const [companies, setCompanies] = useState([
-    "Google",
-    "Microsoft",
-    "Apple",
-    "Amazon",
-    "Facebook",
-    "Twitter",
-    "Bosch",
-    "Infosys",
-    "TCS",
-  ]);
+  const [companies, setCompanies] = useState<any>([]);
 
   const handleLogin = async (event: any) => {
     event.preventDefault();
@@ -86,9 +76,9 @@ const Login = () => {
 
   const [feedbacks, setFeedbacks] = useState([]);
 
-  const handleSearchFeedbacks = async (company: string) => {
+  const handleSearchFeedbacks = async () => {
     const config: any = {
-      url: `${BASE_URL}/get_feedback?company=${company}`,
+      url: `${BASE_URL}/get_feedback`,
       method: "GET",
     };
 
@@ -96,11 +86,20 @@ const Login = () => {
       const response = await axios.request(config);
       console.log(response.data);
       setFeedbacks(response.data);
+      const companySet = new Set();
+      response.data.forEach((feedback: any) => {
+        companySet.add(feedback.company);
+      });
+      setCompanies(Array.from(companySet));
       setFeedbackModalStage(1);
     } catch (error: any) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    handleSearchFeedbacks();
+  }, []);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -120,11 +119,11 @@ const Login = () => {
             <div className="pt-5">
               <h4 className="pb-3">Select Company to view Feedbacks</h4>
               <div className="grid grid-cols-2 gap-4 ">
-                {companies.map((company, index) => (
+                {companies.map((company: any, index: number) => (
                   <div
                     onClick={() => {
                       setSelectedCompany(company);
-                      handleSearchFeedbacks(company);
+                      setFeedbackModalStage(1);
                     }}
                     className="shadow p-2 rounded-lg border cursor-pointer"
                   >
@@ -143,18 +142,21 @@ const Login = () => {
               )}
 
               <div className="grid grid-cols-1 gap-4 ">
-                {feedbacks?.length > 0 ? (
-                  feedbacks.map((feedback: any, index: number) => (
-                    <div
-                      className="shadow p-2 rounded-lg cursor-pointer flex flex-col gap-1 border"
-                      key={index}
-                    >
-                      <div>
-                        <b>{feedback.username}</b> - {feedback.answer}
+                {feedbacks?.filter((s: any) => s?.company == selectedCompany)
+                  ?.length > 0 ? (
+                  feedbacks
+                    ?.filter((s: any) => s?.company == selectedCompany)
+                    ?.map((feedback: any, index: number) => (
+                      <div
+                        className="shadow p-2 rounded-lg cursor-pointer flex flex-col gap-1 border"
+                        key={index}
+                      >
+                        <div>
+                          <b>{feedback.username}</b> - {feedback.answer}
+                        </div>
+                        <div></div>
                       </div>
-                      <div></div>
-                    </div>
-                  ))
+                    ))
                 ) : (
                   <p className="font-bold">No feedbacks found</p>
                 )}

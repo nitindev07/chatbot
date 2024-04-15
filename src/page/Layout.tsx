@@ -114,21 +114,32 @@ export const Layout = () => {
         {feedbackModalStage == 0 ? (
           <div className="pt-5">
             <h4 className="pb-3">Select Company</h4>
-            <div className="grid grid-cols-2 gap-4 ">
-              {companies.map((company, index) => (
-                <div
-                  className="shadow p-2 rounded-lg border cursor-pointer"
-                  onClick={() => {
+            <div className="  ">
+              <div>
+                <label htmlFor="">Enter Company Name</label>
+                <input
+                  type="text"
+                  value={feedbackOptions.company}
+                  onChange={(e) => {
                     setFeedbackOptions({
                       ...feedbackOptions,
-                      company: company,
+                      company: e.target.value,
                     });
-                    setFeedbackModalStage(1);
                   }}
+                  placeholder="Company Name"
+                  className="border rounded-md border-black/20 w-full py-3 px-3"
+                />
+              </div>
+              <div className="flex justify-end mt-4">
+                <button
+                  onClick={() => {
+                    if (feedbackOptions.company) setFeedbackModalStage(1);
+                  }}
+                  className="p-2 px-3 text-white bg-blue-800 rounded-md"
                 >
-                  {company}
-                </div>
-              ))}
+                  Next
+                </button>
+              </div>
             </div>
           </div>
         ) : feedbackModalStage == 1 ? (
@@ -179,7 +190,7 @@ export const Layout = () => {
             {state?.isGuest ? null : (
               <div
                 onClick={handleOpenFeedbackModal}
-                className="text-2xl bg-white p-2 rounded-md block absolute bottom-0 right-[calc(-200px)] cursor-pointer"
+                className="text-lg bg-white p-2 rounded-md block absolute bottom-[-80px] w-[calc(100%-40px)] left-0 cursor-pointer text-center"
               >
                 Give Feedback
               </div>
