@@ -67,6 +67,7 @@ const Login = () => {
       }
       console.log(response.data);
       sessionStorage.setItem("isLogged", "true");
+      sessionStorage.setItem("email", email);
       navigate("/layout");
     } catch (error: any) {
       console.log(error);
