@@ -27,7 +27,18 @@ const Feedbacks = (props: Props) => {
                   className="shadow p-2 rounded-lg cursor-pointer flex flex-col gap-1 border bg-white"
                   key={index}
                 >
-                  <div>
+                  <span
+                    className={`p-2 rounded-md cursor-pointer text-center ${
+                      feedback.difficulty == "Hard"
+                        ? "bg-red-200 text-black"
+                        : feedback.difficulty == "Medium"
+                        ? "bg-yellow-200 text-black"
+                        : "bg-green-200 text-black"
+                    }`}
+                  >
+                    {feedback.difficulty || "Easy"}
+                  </span>
+                  <div className="mt-2">
                     <b>{feedback.username}</b> - {feedback.answer}
                   </div>
                   <div></div>

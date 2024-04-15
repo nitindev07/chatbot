@@ -239,7 +239,10 @@ const Login = () => {
         </div>
       </div>
       <button
-        onClick={handleOpenFeedbackModal}
+        // onClick={handleOpenFeedbackModal}
+        onClick={() => {
+          navigate("/company");
+        }}
         className="mt-3 w-full bg-blue-800 text-white p-2 px-3 rounded-md"
       >
         See Students Feedbacks

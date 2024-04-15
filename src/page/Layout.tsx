@@ -13,10 +13,13 @@ export const Layout = () => {
   const [botOpened, setBotOpened] = useState<boolean>(false);
   const navigate = useNavigate();
 
+  const diffeculties = ["Easy", "Medium", "Hard"];
+
   const [feedbackOptions, setFeedbackOptions] = useState({
     company: "",
     question: "How was your experience with",
     answer: "",
+    difficulty: "Easy",
   });
 
   const [feedbackModal, setFeedbackModal] = useState(false);
@@ -27,6 +30,7 @@ export const Layout = () => {
       company: "",
       question: "How was your experience with",
       answer: "",
+      difficulty: "Easy",
     });
   };
   const handleOpenFeedbackModal = () => setFeedbackModal(true);
@@ -62,6 +66,7 @@ export const Layout = () => {
         company: feedbackOptions.company,
         question: feedbackOptions.question,
         answer: feedbackOptions.answer,
+        difficulty: feedbackOptions.difficulty,
         email: sessionStorage.getItem("email"),
       },
       method: "POST",
@@ -76,6 +81,7 @@ export const Layout = () => {
         company: "",
         question: "How was your experience with",
         answer: "",
+        difficulty: "Easy",
       });
     } catch (error: any) {
       console.log(error);
@@ -159,6 +165,27 @@ export const Layout = () => {
                 });
               }}
             />
+
+            <div className="grid grid-cols-3 gap-3 mt-3">
+              {diffeculties.map((difficulty, index) => (
+                <div
+                  key={index}
+                  onClick={() => {
+                    setFeedbackOptions({
+                      ...feedbackOptions,
+                      difficulty,
+                    });
+                  }}
+                  className={`p-2 rounded-md cursor-pointer text-center ${
+                    feedbackOptions.difficulty == difficulty
+                      ? "bg-blue-200 text-black"
+                      : "bg-gray-200 text-black"
+                  }`}
+                >
+                  {difficulty}
+                </div>
+              ))}
+            </div>
 
             <div className="mt-3 flex justify-end">
               <button
