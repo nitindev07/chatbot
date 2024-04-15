@@ -5,6 +5,8 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { Layout } from "./page/Layout";
 import "./main.css";
 import PrivateComp from "./page/PrivateComp";
+import Company from "./page/Company";
+import Feedbacks from "./page/Feedbacks";
 
 const Chat = lazy(() => import("./page/Guest"));
 const Success = lazy(() => import("./page/Success"));
@@ -115,6 +117,8 @@ const App = () => {
               <Route path="/layout" element={<Layout />} />
             </Route>
             <Route path="/" element={<Chat />} />
+            <Route path="/company" element={<Company />} />
+            <Route path="/feedback" element={<Feedbacks />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AnimatePresence>
